@@ -17,6 +17,7 @@ public class Menu {
                     "3)Object with an array of primitives\n" +
                     "4)Object with an array of object references\n" +
                     "5)Object with an instance of a Java collection\n" +
+                    "6)Objects with circular references\n"+
                     "0)Exit\n");
             input = sc.nextInt();
 
@@ -30,8 +31,19 @@ public class Menu {
                 createGraph();
             }else if(input == 5){
                 createCgraph();
+            }else if(input == 6){
+                createCircular();
             }
         }
+    }
+
+    private void createCircular() {
+        Child c1 = new Child();
+        System.out.println("Set child age: ");
+        c1.setAge(sc.nextInt());
+        Parent p = new Parent(c1);
+        c1.setParent(p);
+        objects.add(p);
     }
 
     private void createCgraph() {

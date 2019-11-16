@@ -29,7 +29,6 @@ public class Serialize {
 		root = new Element("serialized");
 		document = new Document(root);
 		serialize(obj);
-		//output();
 		return document;
 	}
 
@@ -122,23 +121,6 @@ public class Serialize {
 		}
 		root.addContent(ele);
 		return document;
-	}
-
-	public void output(){
-		// Create XML file and XMLOutputStream
-		XMLOutputter xmlout = new XMLOutputter();
-
-		try {
-			FileOutputStream fos = new FileOutputStream("Serialized.xml");
-
-			xmlout.setFormat(Format.getPrettyFormat());
-			xmlout.output(document, System.out);
-			xmlout.output(document, fos);
-		}
-
-		catch(IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void serializeArr(Object obj, boolean prim){
