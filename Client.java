@@ -9,7 +9,7 @@ public class Client
 { 
     // initialize socket and input output streams 
     private Socket           socket  = null; 
-    private DataInputStream  input   = null; 
+    private InputStream  input   = null;
     private BufferedReader   br      = null;
     private DataOutputStream out     = null;
     private FileInputStream fis = null;
@@ -23,17 +23,18 @@ public class Client
             socket = new Socket(address, port); 
             System.out.println("Connected"); 
   
-            // takes input from terminal 
-            input  = new DataInputStream(System.in); 
-  
+            // takes input from terminal
+//            input  = new DataInputStream(System.in);
+
+            input = new FileInputStream("Serialized.xml");
             // sends output to the socket
             out    = new DataOutputStream(socket.getOutputStream());
-            File file = new File("Serialized.xml");
+//            File file = new File("Serialized.xml");
             //Server responds to HEAD request
-            byte[] data =  new byte[2048];
+            byte[] data =  new byte[8192];
             int ct = 0;
             while((ct = input.read(data)) >0){
-                out.write(data);
+                out.write(data, 0, ct);
             }
             out.flush();
         } 
@@ -95,6 +96,6 @@ public class Client
         catch(IOException e) {
             e.printStackTrace();
         }
-        Client client = new Client("127.0.0.1", 5000);
+        Client client = new Client("172.19.3.151", 5000);
     } 
 } 

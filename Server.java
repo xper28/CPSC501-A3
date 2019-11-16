@@ -15,7 +15,7 @@ public class Server
     //initialize socket and input stream 
     private Socket          socket   = null; 
     private ServerSocket    server   = null; 
-    private DataInputStream in       = null; 
+    private InputStream in       = null;
   
     // constructor with port 
     public Server(int port) 
@@ -32,16 +32,27 @@ public class Server
             System.out.println("Client accepted"); 
   
             // takes input from the client socket 
-            in = new DataInputStream( 
-                new BufferedInputStream(socket.getInputStream()));
+            in = socket.getInputStream();
 
             // Create a Deserialize object
             Deserialize d = new Deserialize();
 
+            
             // Deserialize
-            File input = new File("Serialized.xml");
+
+            FileOutputStream fos = new FileOutputStream("Serialized1.xml");
+            //Server responds to HEAD request
+            byte[] data =  new byte[8192];
+            int ct = 0;
+            while((ct = in.read(data)) >0){
+                System.out.println(data);
+                fos.write(data, 0, ct);
+            }
+            //fos.flush();
+            fos.close();
             SAXBuilder sax = new SAXBuilder();
             try {
+                File input = new File("Serialized1.xml");
                 Document doc = sax.build(input);
                 Inspector i  = new Inspector();
                 HashMap<String, Object> map = d.setup(doc);
@@ -71,4 +82,4 @@ public class Server
     {
         Server server = new Server(5000);
     } 
-} 
+}
