@@ -27,10 +27,7 @@ public class Deserialize {
 					cons.setAccessible(true);
 					obj = cons.newInstance(null);
 				} else {
-					System.out.println("MARK" + elem.getAttributeValue("class"));
-					System.out.println("MARKER" + elem.getAttributeValue("length"));
 					obj = Array.newInstance(c.getComponentType(), Integer.parseInt(elem.getAttributeValue("length")));
-					System.out.println("CLEARED");
 				}
 				visited.put(elem.getAttributeValue("id"), obj);
 			} catch (ClassNotFoundException e) {
