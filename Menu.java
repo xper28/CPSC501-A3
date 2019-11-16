@@ -77,7 +77,8 @@ public class Menu {
     }
 
     private void createPlot() {
-        Plot p = new Plot();
+        Coordinate c = new Coordinate();
+        Plot p = new Plot(c);
         System.out.println("Set x coordinate: ");
         p.point.setRow(sc.nextInt());
         System.out.println("Set y coordinate: ");

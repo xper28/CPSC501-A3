@@ -23,14 +23,6 @@ public class Inspector {
                 System.out.println(c.getName() + " Hashcode: " + obj.hashCode());
                 System.out.println(tab + "--------------------------");
 
-
-                //Print out constructors including name, parameter types, modifiers
-                listConstructors(c, obj, depth);
-
-                //Print out method information
-                //listMethods(c,obj,depth);
-
-
                 //Print out field information
                 Field[] fields = c.getDeclaredFields();
                 System.out.println(tab + "Fields: ");
@@ -74,67 +66,7 @@ public class Inspector {
                     }
                 }
                 depth = depth + 1;
-                //inspectClass(sClass, obj, recursive, depth);
             }
-        }
-    }
-
-    public void listConstructors(Class c, Object obj, int depth){
-        String tab = indent(depth);
-        System.out.println();
-        System.out.println(tab + "Constructor metadata: ");
-        Constructor[] cons = c.getDeclaredConstructors();
-        checkNone(cons, tab);
-        for (int i = 0; i < cons.length; i++) {
-            //Print name
-            System.out.println(tab + " -Constructor name: " + cons[i].getName());
-            //Print modifiers
-            int mod = cons[i].getModifiers();
-            System.out.println(tab + " -Access modifier: " + Modifier.toString(mod));
-            //Print parameter types
-            Class[] params = cons[i].getParameterTypes();
-            for (int j = 0; j < params.length; j++) {
-                System.out.println(tab + " -Parameter #" + (j + 1) + " type: " + params[j].getName());
-            }
-        }
-    }
-
-    public void listMethods(Class c, Object obj, int depth){
-        String tab = indent(depth);
-        System.out.println();
-        System.out.println(tab + "Methods declared: ");
-        Method[] methods = c.getDeclaredMethods();
-        checkNone(methods, tab);
-        for (int i = 0; i < methods.length; i++) {
-            //Print method name
-            System.out.println(tab + "Method " + (i + 1) + ": " + methods[i].getName());
-            //Print exceptions thrown
-            Class[] exeps = methods[i].getExceptionTypes();
-            System.out.println(tab + " -Exeptions thrown: ");
-            for (int j = 0; j < exeps.length; j++) {
-                System.out.println(tab + "  --" + exeps[j].getName());
-            }
-            //Print parameter types
-            System.out.println(tab + " -Parameter types: ");
-            Class[] types = methods[i].getParameterTypes();
-            for (int k = 0; k < types.length; k++) {
-                System.out.println(tab + "  --" + types[k].getName());
-            }
-            //Print access modifier
-            int mod = methods[i].getModifiers();
-            System.out.println(tab + " -Access modifier: " + Modifier.toString(mod));
-            System.out.println();
-        }
-    }
-
-    public void traverseInterfaces(Class c, Object obj,Boolean recursive, int depth){
-        String tab = indent(depth);
-        //Print out names of interfaces the class implements
-        System.out.println(tab + "Interfaces implemented: ");
-        Class[] interfaces = c.getInterfaces();
-        checkNone(interfaces, tab);
-        for (int i = 0; i < interfaces.length; i++) {
-            inspectClass(interfaces[i], obj, recursive, depth + 1);
         }
     }
 

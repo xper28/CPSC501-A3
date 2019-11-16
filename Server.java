@@ -57,7 +57,8 @@ public class Server
             System.out.println("Closing connection"); 
   
             // close connection 
-            socket.close(); 
+            socket.close();
+            server.close();
             in.close(); 
         } 
         catch(IOException i) 
